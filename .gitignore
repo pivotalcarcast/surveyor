@@ -19,6 +19,7 @@ rdoc
 pkg
 Gemfile.lock
 reports
+.sass-cache
 
 ## PROJECT::SPECIFIC
 testbed
