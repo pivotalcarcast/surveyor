@@ -10,6 +10,26 @@ describe Response, "when saving a response" do
     @response.should be_valid
   end
 
+  context "when the question is mandatory" do
+    let(:response) { @response = Factory.build(:response, :question => Factory(:question, :is_mandatory => true), :answer => nil) }
+    it "requires an answer" do
+      response.should_not be_valid
+
+      response.answer = Factory(:answer)
+      response.should be_valid
+    end
+  end
+
+  context "when the question is not mandatory" do
+    let(:response) { @response = Factory.build(:response, :question => Factory(:question, :is_mandatory => false), :answer => nil) }
+    it "requires an answer" do
+      response.should be_valid
+
+      response.answer = Factory(:answer)
+      response.should be_valid
+    end
+  end
+
   it "should be invalid without a parent response set and question" do
     @response.response_set_id = nil
     @response.should have(1).error_on(:response_set_id)

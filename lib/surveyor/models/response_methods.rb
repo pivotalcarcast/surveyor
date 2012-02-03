@@ -9,7 +9,8 @@ module Surveyor
         @@validations_already_included ||= nil
         unless @@validations_already_included
           # Validations
-          base.send :validates_presence_of, :response_set_id, :question_id, :answer_id
+          base.send :validates_presence_of, :response_set_id, :question_id
+          base.send :validates_presence_of, :answer_id, :if => :check_mandatory
           
           @@validations_already_included = true
         end
@@ -29,6 +30,10 @@ module Surveyor
         end
       end
 
+      def check_mandatory
+        self.question.try(:is_mandatory?)
+      end
+
       # Instance Methods
       def answer_id=(val)
         write_attribute :answer_id, (val.is_a?(Array) ? val.detect{|x| !x.to_s.blank?} : val)
@@ -44,6 +49,10 @@ module Surveyor
           return "#{(self.string_value || self.text_value || self.integer_value || self.float_value || nil).to_s}"
         end
       end
+
+
+
+
     end
   end
 end

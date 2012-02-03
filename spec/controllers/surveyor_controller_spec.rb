@@ -186,6 +186,7 @@ describe SurveyorController do
     end
 
     def do_put_with_finish
+      Response.stub(:check_mandatory).and_return(false)
       responses = {
          "6"=>{"question_id"=>"6", "answer_id" => "6", "string_value"=>"saf"}, #string
          "7"=>{"question_id"=>"7", "answer_id" => "11", "text_value"=>"foo"}, #text
