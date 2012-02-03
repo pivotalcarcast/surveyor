@@ -20,7 +20,7 @@ describe Question, "when creating a new question" do
   it "should be mandatory by default" do
     @question.mandatory?.should be_true
   end
-  
+
   it "should convert pick attribute to string" do
     @question.pick.should == "none"
     @question.pick = :one

@@ -5,7 +5,11 @@ describe Surveyor do
     Surveyor::Parser.parse(File.read(File.join(Rails.root, 'surveys', 'kitchen_sink_survey.rb')))
     survey = Survey.last
     rs = ResponseSet.create(:survey => survey)
-    survey.sections.each{|s| s.questions.each{|q| rs.responses.create(:question => q, :answer => q.answers.first)}}
+    survey.sections.each do |s|
+      s.questions.select{|q| q.renderer != :label}.each do |q|
+        rs.responses.create(:question => q, :answer => q.answers.first)
+      end
+    end
     Benchmark.bm 20 do |x|
       x.report "a test" do
         full_path = File.join(Rails.root,"#{survey.access_code}_#{Time.now.to_i}.csv")

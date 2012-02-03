@@ -31,7 +31,7 @@ module Surveyor
       end
 
       def check_mandatory
-        self.question.try(:is_mandatory?)
+        self.question.try(:is_mandatory?) && self.question.try(:triggered?, self.response_set)
       end
 
       # Instance Methods

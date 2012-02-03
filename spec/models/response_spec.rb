@@ -18,6 +18,29 @@ describe Response, "when saving a response" do
       response.answer = Factory(:answer)
       response.should be_valid
     end
+
+    context "when the question is (dependent and) triggered" do
+      before do
+        response.question.stub(:triggered?).and_return(true)
+      end
+
+      it "requires an answer" do
+        response.should_not be_valid
+
+        response.answer = Factory(:answer)
+        response.should be_valid
+      end
+    end
+
+    context "when the question is (dependent and) not triggered" do
+      before do
+        response.question.stub(:triggered?).and_return(false)
+      end
+
+      it "does not require an answer" do
+        response.should be_valid
+      end
+    end
   end
 
   context "when the question is not mandatory" do
