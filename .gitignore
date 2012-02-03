@@ -24,3 +24,6 @@ reports
 testbed
 surveys/fixtures/*.yml
 .rvmrc
+
+##RubyMine
+.idea
