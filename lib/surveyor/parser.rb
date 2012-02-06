@@ -6,9 +6,7 @@ module Surveyor
 
     # Class methods
     def self.parse(str)
-      puts
       Surveyor::Parser.new.parse(str)
-      puts
     end
 
     # Instance methods
@@ -24,8 +22,6 @@ module Surveyor
       method_name, reference_identifier = missing_method.to_s.split("_", 2)
       type = full(method_name)
       
-      print reference_identifier.blank? ? "#{type} " : "#{type}_#{reference_identifier} "
-      
       # check for blocks
       raise "Error: A #{type.humanize} cannot be empty" if block_models.include?(type) && !block_given?
       raise "Error: Dropping the #{type.humanize} block like it's hot!" if !block_models.include?(type) && block_given?
@@ -36,10 +32,6 @@ module Surveyor
       # evaluate and clear context for block models
       if block_models.include?(type)
         self.instance_eval(&block) 
-        if type == 'survey'
-          puts
-          print context[type.to_sym].save ? "saved. " : " not saved! #{context[type.to_sym].errors.each_full{|x| x }.join(", ")} "
-        end
         context[type.to_sym].clear(context) unless type == 'survey'
       end
     end
