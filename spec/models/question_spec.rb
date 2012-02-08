@@ -42,6 +42,11 @@ describe Question, "when creating a new question" do
   it "should have an api_id" do
     @question.api_id.length.should == 36
   end
+
+  it "should be able to set is_mandatory to false" do
+    question = Question.new(:text => "What is your favorite color?", :survey_section => @ss, :is_mandatory => false, :display_order => 1)
+    question.is_mandatory.should be_false
+  end
 end
 
 describe Question, "that has answers" do
