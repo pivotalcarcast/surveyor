@@ -105,13 +105,12 @@ class QuestionGroup < ActiveRecord::Base
   # block
 
   def self.parse_and_build(context, args, original_method, reference_identifier)
-    # clear context
-    context.delete_if{|k,v| !%w(survey survey_section question_references answer_references).map(&:to_sym).include?(k)}
-
-    # build and set context
-    context[:question_group] = context[:question_group] = new({  :text => args[0] || "Question Group",
-                                      :display_type => (original_method =~ /grid|repeater/ ? original_method : "default")}.merge(args[1] || {}))
-
+      context.delete_if{|k,v| !%w(survey survey_section question_references answer_references).map(&:to_sym).include?(k)}
+      display_type = original_method =~ /grid|repeater/ ? original_method : "default"
+      question_group = new({:text => args[0] || "Question Group",
+                            :display_type => display_type,
+                            :reference_identifier => reference_identifier}.merge(args[1] || {}))
+      context[:question_group] = question_group
   end
   def clear(context)
     context.delete_if{|k,v| !%w(survey survey_section question_references answer_references).map(&:to_sym).include?(k)}
