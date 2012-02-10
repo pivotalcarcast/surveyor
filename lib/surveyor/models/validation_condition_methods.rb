@@ -15,6 +15,7 @@ module Surveyor
           base.send :validates_uniqueness_of, :rule_key, :scope => :validation_id
           # this causes issues with building and saving
           # base.send :validates_numericality_of, :validation_id #, :question_id, :answer_id
+          base.send :serialize, :regexp
           
           @@validations_already_included = true
         end
@@ -42,9 +43,9 @@ module Surveyor
           response.as(klass).send(self.operator, compare_to.as(klass))
         when "!="
           !(response.as(klass) == compare_to.as(klass))
-        when "=~"
+          when "=~"
           return false if compare_to != self
-          !(response.as(klass).to_s =~ Regexp.new(self.regexp || "")).nil?
+          (response.to_s =~ (self.regexp || Regexp.new(""))).present?
         else
           false
         end

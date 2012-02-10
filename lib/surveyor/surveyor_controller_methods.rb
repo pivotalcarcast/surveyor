@@ -71,6 +71,7 @@ module Surveyor
       return redirect_with_message(surveyor_finish, :notice, t('surveyor.completed_survey')) if saved && params[:finish]
 
       respond_to do |format|
+
         format.html do
           if @response_set.blank?
             return redirect_with_message(available_surveys_path, :notice, t('surveyor.unable_to_find_your_responses'))

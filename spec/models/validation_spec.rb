@@ -38,10 +38,8 @@ describe Validation, "reporting its status" do
     vchashes.each do |vchash|
       Factory(:validation_condition, {:validation => v, :rule_key => "A"}.merge(vchash))
     end
-    rs = Factory(:response_set)
     r = Factory(:response, {:answer => a, :question => a.question}.merge(rhash))
-    rs.responses << r
-    return v.is_valid?(rs)
+    return v.is_valid?(r)
   end
 
   it "should validate a response by integer comparison" do
