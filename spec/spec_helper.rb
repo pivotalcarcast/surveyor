@@ -7,6 +7,7 @@ rescue LoadError => e
 end
 require 'rspec/rails'
 require 'factories'
+require 'timecop'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

@@ -189,6 +189,24 @@ describe ResponseSet do
   end
 end
 
+describe ResponseSet, "default sort order" do
+  it "returns response sets in order, newest first" do
+    old_response_set, older_response_set, oldest_response_set = nil
+    Timecop.freeze(3.hours.ago) do
+      oldest_response_set = Factory(:response_set)
+    end
+    Timecop.freeze(1.hour.ago) do
+      old_response_set = Factory(:response_set)
+    end
+    Timecop.freeze(2.hours.ago) do
+      older_response_set = Factory(:response_set)
+    end
+
+    ResponseSet.all.should == [old_response_set, older_response_set, oldest_response_set]
+  end
+end
+
+
 describe ResponseSet, "with dependencies" do
   before(:each) do
     @section = Factory(:survey_section)
