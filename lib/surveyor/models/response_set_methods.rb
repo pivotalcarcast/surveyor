@@ -16,7 +16,6 @@ module Surveyor
           base.send :validates_presence_of, :survey_id
           base.send :validates_associated, :responses
           base.send :validates_uniqueness_of, :access_code
-          base.send :default_scope, :order => 'updated_at DESC'
 
           @@validations_already_included = true
         end
