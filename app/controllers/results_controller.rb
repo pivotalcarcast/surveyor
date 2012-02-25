@@ -1,8 +1,6 @@
 class ResultsController < ApplicationController
   helper 'surveyor'
-  layout 'application'
-
-  
+  layout 'results' 
   def index
     @surveys = Survey.all
   end

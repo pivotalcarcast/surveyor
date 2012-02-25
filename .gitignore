@@ -19,12 +19,8 @@ rdoc
 pkg
 Gemfile.lock
 reports
-.sass-cache
 
 ## PROJECT::SPECIFIC
 testbed
 surveys/fixtures/*.yml
 .rvmrc
-
-##RubyMine
-.idea

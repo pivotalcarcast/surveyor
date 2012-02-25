@@ -43,7 +43,7 @@ module Surveyor
           response.as(klass).send(self.operator, compare_to.as(klass))
         when "!="
           !(response.as(klass) == compare_to.as(klass))
-          when "=~"
+        when "=~"
           return false if compare_to != self
           (response.to_s =~ (self.regexp || Regexp.new(""))).present?
         else

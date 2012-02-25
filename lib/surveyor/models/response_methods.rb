@@ -49,10 +49,6 @@ module Surveyor
           return "#{(self.string_value || self.text_value || self.integer_value || self.float_value || nil).to_s}"
         end
       end
-
-
-
-
     end
   end
 end
